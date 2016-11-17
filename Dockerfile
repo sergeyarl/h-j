@@ -7,7 +7,6 @@ COPY package.json /usr/src/package.json
 RUN npm install
 
 COPY app.js /usr/src/
-COPY package.json /usr/src
 COPY test /usr/src/test
 COPY script /usr/src/script
 
