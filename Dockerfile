@@ -13,4 +13,4 @@ COPY script /usr/src/script
 USER nobody
 
 EXPOSE 5000
-CMD [“node”,”app.js”]
+CMD ["node", "app.js"]
