@@ -1,7 +1,7 @@
 machine:
   services:
     - docker
-  pre:
+  post:
     - COMMIT_ID_ID=`git log --format="%H" -n 1`
   environment:
     DATABASE_URL: $COMMIT_ID_ID
