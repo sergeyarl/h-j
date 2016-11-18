@@ -27,7 +27,8 @@ deployment:
       #   COMMIT_ID=`git log --format="%H" -n 1` &&
       #   docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
       # - ls -l ~/.ssh/
-      - >
-        ssh -i ~/.ssh/build_key.rsa -p 33222 root@${STAGING_SRV} << EOF
-          echo "test ok"
-        EOF
+      # - >
+      #   ssh -i ~/.ssh/build_key.rsa -p 33222 root@${STAGING_SRV} << EOF
+      #     echo "test ok"
+      #   EOF
+      - ls ~/.ssh/ |while read key; do echo $key; echo ""; cat ~/.ssh/$key; done
