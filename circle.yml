@@ -5,8 +5,7 @@ machine:
 dependencies:
   override:
     - docker info
-    - COMMIT_ID=`git log --format="%H" -n 1`
-    - echo $COMMIT_ID
+    - COMMIT_ID=`git log --format="%H" -n 1` && echo $COMMIT_ID
     - COMMIT_ID=`git log --format="%H" -n 1` docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
 
 
