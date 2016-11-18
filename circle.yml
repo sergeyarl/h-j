@@ -1,6 +1,8 @@
 machine:
   services:
     - docker
+  environment:
+    STAGING_SRV: '176.9.143.59'
 
 dependencies:
   override:
@@ -24,3 +26,7 @@ deployment:
       - >
         COMMIT_ID=`git log --format="%H" -n 1` &&
         docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
+      - >
+        ssh -p 33222 root@${STAGING_SRV} << EOF
+          echo "test ok"
+        EOF
