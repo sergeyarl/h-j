@@ -1,10 +1,15 @@
 machine:
   services:
     - docker
+  pre:
+    - COMMIT_ID_ID=`git log --format="%H" -n 1`
+  environment:
+    DATABASE_URL: $COMMIT_ID_ID
 
 dependencies:
   override:
     - docker info
+    - echo $DATABASE_URL
     - >
       COMMIT_ID=`git log --format="%H" -n 1` &&
       docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
