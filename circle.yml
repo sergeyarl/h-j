@@ -1,0 +1,20 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build --rm=false -t sergeyarl/hj_app .
+
+
+test:
+  override:
+    - docker run -i --rm sergeyarl/hj_app script/test
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u sergeyarl -p 'pa$$w1rd'
+      - docker push sergeyarl/hj_app
