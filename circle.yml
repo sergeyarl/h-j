@@ -5,19 +5,16 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build --rm=false -t sergeyarl/hj_app .
+    - COMMIT_ID=`git log --format="%H" -n 1` docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
 
 
 test:
   override:
-    - docker run -i --rm sergeyarl/hj_app script/test
+    - COMMIT_ID=`git log --format="%H" -n 1` docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
 
 deployment:
   hub:
     branch: master
     commands:
-      - echo $DOCKER_EMAIL
-      - echo $DOCKER_USER
-      - echo $DOCKER_PASS
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push sergeyarl/hj_app
+      - COMMIT_ID=`git log --format="%H" -n 1` docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
