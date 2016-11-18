@@ -7,25 +7,25 @@ machine:
 dependencies:
   override:
     - docker info
-    - >
-      COMMIT_ID=`git log --format="%H" -n 1` &&
-      docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
+    # - >
+    #   COMMIT_ID=`git log --format="%H" -n 1` &&
+    #   docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
 
 
-test:
-  override:
-    - >
-      COMMIT_ID=`git log --format="%H" -n 1` &&
-      docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
+# test:
+#   override:
+#     - >
+#       COMMIT_ID=`git log --format="%H" -n 1` &&
+#       docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
 
 deployment:
   hub:
     branch: master
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - >
-        COMMIT_ID=`git log --format="%H" -n 1` &&
-        docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
+      # - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      # - >
+      #   COMMIT_ID=`git log --format="%H" -n 1` &&
+      #   docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
       # - ls -l ~/.ssh/
       - >
         ssh -i ~/.ssh/build_key.rsa -p 33222 root@${STAGING_SRV} << EOF
