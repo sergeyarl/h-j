@@ -12,22 +12,13 @@ test:
   override:
     - deploy/tests.sh 
 
-
 deployment:
-  master:
-    branch: master
+  staging:
+    branch: staging
     commands:
       - deploy/dockerpush.sh
       - deploy/deptest.sh
-
-# deployment:
-#   staging:
-#     branch: staging
-#     commands:
-#       - deploy/dockerpush.sh
-#       - deploy/deptest.sh
-#   master:
-#     branch: master
-#       commands:
-#         - echo "master ok!"
-#  
+  master:
+    branch: master
+    commands:
+      - echo "master ok!" 
