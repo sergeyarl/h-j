@@ -5,10 +5,8 @@ machine:
     STAGING_SRV: '176.9.143.59'
 
 dependencies:
-  branch: master
-    override:
-      - echo $CIRCLE_BRANCH
-    # - deploy/depdep.sh
+  override:
+    - deploy/deps.sh
     # - if [ $CIRCLE_BRANCH = 'staging' ]; then docker info; fi
     # - >
     #   if [ $CIRCLE_BRANCH = 'staging' ]; then 
@@ -17,9 +15,9 @@ dependencies:
     #   fi
 
 
-# test:
-#   override:
-#     - deploy/tests.sh 
+test:
+  override:
+    - deploy/tests.sh 
 # #     - >
 # #       COMMIT_ID=`git log --format="%H" -n 1` &&
 # #       docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
