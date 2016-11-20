@@ -6,24 +6,26 @@ machine:
 
 dependencies:
   override:
-    - docker info
+    - if [ $CIRCLE_BRANCH = 'staging' ]; then docker info; fi
     - >
-      COMMIT_ID=`git log --format="%H" -n 1` &&
-      docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
+      if [ $CIRCLE_BRANCH = 'staging' ]; then  
+      COMMIT_ID=`git log --format="%H" -n 1` && 
+      docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID . ; 
+      fi
 
 
-test:
-  override:
-    - >
-      COMMIT_ID=`git log --format="%H" -n 1` &&
-      docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
-
-deployment:
-  hub:
-    branch: master
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - >
-        COMMIT_ID=`git log --format="%H" -n 1` &&
-        docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
-      - deploy/deptest.sh
+# test:
+#   override:
+#     - >
+#       COMMIT_ID=`git log --format="%H" -n 1` &&
+#       docker run -i --rm ${DOCKER_USER}/hj_app:$COMMIT_ID script/test
+# 
+# deployment:
+#   hub:
+#     branch: master
+#     commands:
+#       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+#       - >
+#         COMMIT_ID=`git log --format="%H" -n 1` &&
+#         docker push ${DOCKER_USER}/hj_app:$COMMIT_ID
+#       - deploy/deptest.sh
