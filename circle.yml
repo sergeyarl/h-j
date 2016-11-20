@@ -6,12 +6,11 @@ machine:
 
 dependencies:
   override:
-    - if [ $CIRCLE_BRANCH = 'staging' ]; then docker info; fi
+    - test $CIRCLE_BRANCH == 'staging' && docker info
     - >
-      if [ $CIRCLE_BRANCH = 'staging' ]; then 
+      test $CIRCLE_BRANCH == 'staging' &&
       COMMIT_ID=`git log --format="%H" -n 1` &&
-      docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID . ;
-      fi
+      docker build --rm=false -t ${DOCKER_USER}/hj_app:$COMMIT_ID .
 
 
 # test:
