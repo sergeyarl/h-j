@@ -5,8 +5,8 @@ machine:
     STAGING_SRV: '176.9.143.59'
 
 dependencies:
-  override:
-    branch: master
+  branch: master
+    override:
       - echo $CIRCLE_BRANCH
     # - deploy/depdep.sh
     # - if [ $CIRCLE_BRANCH = 'staging' ]; then docker info; fi
